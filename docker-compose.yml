@@ -1,8 +1,44 @@
 version: '3.9'
 
 services:
-  django:
-    image: django-docker:0.0.1
+  web:
     build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=mysql://admin:admin@db:3306/todolist
+  
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: todolist               
+      MYSQL_USER: admin                     
+      MYSQL_PASSWORD: admin             
+  
+  db_migrate:
+    build: .
+    command: python manage.py migrate
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  
+  create_superuser:
+    build: .
+    command: python manage.py createsuperuser --noinput --username admin --email admin@example.com
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+  collectstatic:
+    build: .
+    command: python manage.py collectstatic --noinput
+    volumes:
+      - .:/code
+    depends_on:
+      - web
