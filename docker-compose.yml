@@ -11,7 +11,7 @@ services:
 
   web:
     build: .
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 && python manage.py createsuperuser --noinput --username admin --email admin@example.com"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser --noinput --username admin --email admin@example.com && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
@@ -22,6 +22,7 @@ services:
       - .env
     depends_on:
       - db
+    restart: unless-stopped
 
   collectstatic:
     build: .
