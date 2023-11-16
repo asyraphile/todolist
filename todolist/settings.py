@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_google_sso',
     'django.contrib.staticfiles',
     'rest_framework',
     'main',
@@ -123,7 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Media files (uploads)
 MEDIA_URL = '/media/'
@@ -133,3 +135,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#google SSO
+GOOGLE_SSO_CLIENT_ID = "479966026914-d2l86itaf21cc9bv5qrkf2ikrgjg9mfn.apps.googleusercontent.com"
+GOOGLE_SSO_PROJECT_ID = "the-retina-375306"
+GOOGLE_SSO_CLIENT_SECRET = "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"
+
+GOOGLE_SSO_ALLOWABLE_DOMAINS = ["gmail.com"]
